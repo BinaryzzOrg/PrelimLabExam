@@ -4,11 +4,15 @@ public class CrudOperations {
 
 	// create object of Scanner
 	private static Scanner sc = new Scanner(System.in);
+	//first index that has no element
+	private static int index;
+	//boolean for checking if array is full or not
+	private static boolean arrayIsFull;
 
 	public static void Initialized() {
 
 		// ask user to Enter the size of array
-		System.out.print("Enter size of the array: ");
+		System.out.print("\nEnter size of the array: ");
 
 		int size = sc.nextInt();
 
@@ -24,7 +28,6 @@ public class CrudOperations {
 
 		DynamicArray.SetArray(tempArray);
 		DisplayArray(tempArray);
-		System.out.println();
 	}// end method
 
 	/*
@@ -38,10 +41,12 @@ public class CrudOperations {
 		System.out.print("\nThe current elements of the array are: ");
 		// print the elements
 		for (int value : array) {
-			System.out.print(value + " ");
+//			if (value !=  0) {
+				System.out.print(value + " ");
+//			}
 		} // end method
 
-		System.out.print("\n");
+		System.out.println("\n");
 	}// end method
 
 	/*
@@ -51,27 +56,21 @@ public class CrudOperations {
 
 	public static void Append(int[] array) {
 
+		arrayChecker(array);
+		
+		if (arrayIsFull) {
+			DoubleArrayCapacity(array);
+			array = DynamicArray.GetArray();
+		}
+		arrayChecker(array);
+		
 		// store user input
 		sc = new Scanner(System.in);
-
-		boolean IsArrayFull = true;
-		// iterate the array
-		for (int index = 0; index < array.length; index++) {
-
-			if (array[index] == -1) {
-				System.out.print("\nEnter a number: ");
-				array[index] = sc.nextInt();
-				System.out.println("The new element has been added successfully! \n");
-				IsArrayFull = false;
-				break;
-			} // end if
-		} // end for loop
-
-		// detect that array is full
-		if (IsArrayFull) {
-			System.out.println("{Array is full!}\n");
-		} // end if
-
+		System.out.print("\nEnter the element you want to append: ");
+		int userInput = sc.nextInt();
+		array[index] = userInput;
+		
+		System.out.println("Element added successfully!");
 		DisplayArray(array);
 	}// end method
 
@@ -82,7 +81,7 @@ public class CrudOperations {
 		int indexToRemove = sc.nextInt();
 
 		// if index out of bounds send error message
-		if (indexToRemove > array.length || indexToRemove < 0) {
+		if (indexToRemove > array.length - 1 || indexToRemove < 0) {
 			System.out.println("{Index does not exist!}");
 			Delete(array);
 
@@ -94,9 +93,9 @@ public class CrudOperations {
 			} else {// if index value is not empty
 				// make the index empty
 				array[indexToRemove] = 0;
+				moveElementsToLeft(indexToRemove, array);
 				// display message
-				System.out.println("\nElement at index [" + indexToRemove + "] has been removed successfully!");
-				System.out.println(CrudMenuOperations.GetNotice_Msg(2) + "\n");
+				System.out.println("Element at index [" + indexToRemove + "] successfully deleted!\n");
 			} // end if else
 		} // end if else
 
@@ -106,8 +105,71 @@ public class CrudOperations {
 	// ehe
 	//
 
-	// unshift here
-	// ehe
-	//
+	public static void Unshift(int[] array) {
+		
+		arrayChecker(array);
+		
+		if (arrayIsFull) {
+			DoubleArrayCapacity(array);
+			array = DynamicArray.GetArray();
+		}
+		
+		arrayChecker(array);
+		moveElementsToRight(index, array);
+		
+		// store user input
+		sc = new Scanner(System.in);
+		System.out.print("\nEnter the element you want to unshift: ");
+		int userInput = sc.nextInt();
+		
+		array[0] = userInput;
+		DynamicArray.SetArray(array);
+		
+		System.out.println("Element added successfully!");
+		DisplayArray(array);
+	}
+	
 
+	
+	public static void arrayChecker(int[] array) {
+		arrayIsFull = true;
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == 0) {
+				index = i;
+				arrayIsFull = false;
+				break;
+			}
+		}
+	}
+	
+	public static void DoubleArrayCapacity(int[] array) {
+		int[] tempArray = new int[array.length*2];
+		for (int i = 0; i < array.length; i++) {
+			tempArray[i] = array[i];
+		}
+		DynamicArray.SetArray(tempArray);
+		arrayIsFull = false;
+	}
+	
+	public static void moveElementsToLeft(int index, int[] array) {
+		for (int i = index; i < array.length-1; i++) {
+			int temp = array[i];
+			array[i] = array[i+1];
+			array[i+1] = temp;
+		}
+		
+		DynamicArray.SetArray(array);
+	}
+	
+	public static void moveElementsToRight(int index, int[] array) {
+		for (int i = index; i > 0; i--) {
+			int temp = array[i];
+			array[i] = array[i-1];
+			array[i-1] = temp;
+		}
+		
+		DynamicArray.SetArray(array);
+	}
+	
+	
 }// end class

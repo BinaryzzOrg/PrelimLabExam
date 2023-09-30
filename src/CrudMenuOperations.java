@@ -3,17 +3,15 @@ import java.util.Scanner;
 public class CrudMenuOperations {
 
 //	@formatter:off
-	final private static String[] NOTICE_MSG = { "Choose if the user hasn't initialized an array",
+	final private static String[] NOTICE_MSG = { "Choose this if you have not initialized yet",
 												"[1]INITIALIZED (not recommended)",
-												"(It will only leave an \"X\" sign when you view it)",
 												"Shifting remaining elements in left side...", "{Nothing to Compress here!}" };
 
 	final private static String PROGRAM_TITLE = "Welcome to Java Array Operations";
 	final private static String[] PRINT_OPERATIONS = { "INITIALIZE", "DISPLAY", "APPEND", "DELETE",
 													"SPLICE", "UNSHIFT", "EXIT" };
 	
-	// boolean flags
-	private static boolean repeatProcess = false;
+	// boolean flag
 	private static boolean disableOneChoice = false;
 //	@formatter:on
 
@@ -59,52 +57,50 @@ public class CrudMenuOperations {
 
 		Scanner sc = new Scanner(System.in);
 
-		boolean inputValid = false;
-		while (!inputValid) {
-			String user_Choice = sc.nextLine();
-			switch (user_Choice) {
-			case "1":
-				// Initialize
-				if (disableOneChoice) {
-					// do something else
-				} else {
-					CrudOperations.Initialized();
-					disableOneChoice = true;
-				}
-				MenuDisplay(PRINT_OPERATIONS, inputValid);
-				inputValid = true;
-				break;
-			case "2":
-				// Display
-				OperationErrorMsg(2);
-				break;
-			case "3":
-				// Append
-				OperationErrorMsg(3);
-				break;
-			case "4":
-				// Delete
-				OperationErrorMsg(4);
-				break;
-			case "5":
-				// Splice
-				break;
-			case "6":
-				// Unshift
-				break;
-			case "7":
-				System.out.println("Exiting Program...");
-				System.exit(0);
-				break;
-			case "":
-				// call it self again
-				Operation_Type();
-			default:
-				System.out.println("{Please type from 1-7 only!}\n");
-				MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
-				break;
-			}// end switch
-		} // end while
+		String user_Choice = sc.nextLine();
+		switch (user_Choice) {
+		case "1":
+			// Initialize
+			if (disableOneChoice) {
+				// do something else
+			} else {
+				CrudOperations.Initialized();
+				disableOneChoice = true;
+			}
+			MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
+			break;
+		case "2":
+			// Display
+			OperationErrorMsg(2);
+			break;
+		case "3":
+			// Append
+			OperationErrorMsg(3);
+			break;
+		case "4":
+			// Delete
+			OperationErrorMsg(4);
+			break;
+		case "5":
+			// Splice
+			break;
+		case "6":
+			// Unshift
+			OperationErrorMsg(6);
+			break;
+		case "7":
+			System.out.println("Exiting Program...");
+			System.exit(0);
+			break;
+		case "":
+			// call it self again
+			Operation_Type();
+			break;
+		default:
+			System.out.println("{Please type from 1-7 only!}\n");
+			MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
+			break;
+		}// end switch
 	}// end method
 
 	/*
@@ -112,7 +108,7 @@ public class CrudMenuOperations {
 	 * input choice
 	 */
 
-	public static boolean OperationErrorMsg(int choice) {
+	public static void OperationErrorMsg(int choice) {
 
 		String errorMsg = "{Initialized First!}\n";
 		if (disableOneChoice && choice == 2) {
@@ -123,14 +119,13 @@ public class CrudMenuOperations {
 			CrudOperations.Delete(DynamicArray.GetArray());
 		} else if (disableOneChoice && choice == 5) {
 			// splice here
-		} else if (disableOneChoice && choice == 5) {
-			// unshift
+		} else if (disableOneChoice && choice == 6) {
+			CrudOperations.Unshift(DynamicArray.GetArray());
 		} else {
 			System.out.println(errorMsg);
 		} // end if else
 
 		MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
-		return true;
 	}// end method
 
 	// constructor
@@ -138,11 +133,8 @@ public class CrudMenuOperations {
 		System.out.println("**********\"" + PROGRAM_TITLE + "\"**********" + ""
 				+ "\n******************************************************");
 
-		// enable looping
-		do {
-			System.out.println();
-			MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
-			// continue looping until boolean flag becomes true
-		} while (!repeatProcess);
+		System.out.println();
+		MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
+		
 	}// end method
 }// end class
