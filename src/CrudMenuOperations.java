@@ -10,7 +10,7 @@ public class CrudMenuOperations {
 	final private static String PROGRAM_TITLE = "Welcome to Java Array Operations";
 	final private static String[] PRINT_OPERATIONS = { "INITIALIZE", "DISPLAY", "APPEND", "DELETE",
 													"SPLICE", "UNSHIFT", "EXIT" };
-	
+
 	// boolean flag
 	private static boolean disableOneChoice = false;
 //	@formatter:on
@@ -32,7 +32,7 @@ public class CrudMenuOperations {
 //		@formatter:off
 		for (int i = 0; i < blueprint.length; i++) {
 			if (i == 0 && !disableOneChoice) {
-				System.out.println("\t=>" + "[" + (i + 1) + "]" 
+				System.out.println("\t=>" + "[" + (i + 1) + "]"
 						+ blueprint[i] + " (" + GetNotice_Msg(i) + ")");
 				// if true disables the first operation
 			} else if (i == 0 && disableOneChoice) {
@@ -82,7 +82,7 @@ public class CrudMenuOperations {
 			OperationErrorMsg(4);
 			break;
 		case "5":
-			// Splice
+			OperationErrorMsg(5);
 			break;
 		case "6":
 			// Unshift
@@ -118,7 +118,7 @@ public class CrudMenuOperations {
 		} else if (disableOneChoice && choice == 4) {
 			CrudOperations.Delete(DynamicArray.GetArray());
 		} else if (disableOneChoice && choice == 5) {
-			// splice here
+			CrudOperations.splice_Operation(DynamicArray.GetArray());
 		} else if (disableOneChoice && choice == 6) {
 			CrudOperations.Unshift(DynamicArray.GetArray());
 		} else {
@@ -135,6 +135,6 @@ public class CrudMenuOperations {
 
 		System.out.println();
 		MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
-		
+
 	}// end method
 }// end class
