@@ -128,11 +128,20 @@ public class CrudMenuOperations {
 		MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
 	}// end method
 
+	
+	public static void printChar(char toPrint, int numTimes) {
+		for (int i = 0; i < numTimes; i++) {
+			System.out.print(toPrint);
+		}
+		System.out.println();
+	}
+	
 	// constructor
 	public CrudMenuOperations() {
-		System.out.println("**********\"" + PROGRAM_TITLE + "\"**********" + ""
-				+ "\n******************************************************");
-
+		printChar('*' , 47);
+		System.out.println("\t" + PROGRAM_TITLE);
+		printChar('*' , 47);
+		
 		System.out.println();
 		MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
 
