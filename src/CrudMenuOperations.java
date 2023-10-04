@@ -3,10 +3,11 @@ import java.util.Scanner;
 public class CrudMenuOperations {
 
 //	@formatter:off
+	/*constant variable used in printing
+	 * array of string consists of notice message, and string of operations
+	 */
 	final private static String[] NOTICE_MSG = { "Choose this if you have not initialized yet",
-												"[1]INITIALIZED (not recommended)",
-												"Shifting remaining elements in left side...", "{Nothing to Compress here!}" };
-
+												"[1]INITIALIZED (not recommended)"};
 	final private static String PROGRAM_TITLE = "Welcome to Java Array Operations";
 	final private static String[] PRINT_OPERATIONS = { "INITIALIZE", "DISPLAY", "APPEND", "DELETE",
 													"SPLICE", "UNSHIFT", "EXIT" };
@@ -15,42 +16,15 @@ public class CrudMenuOperations {
 	private static boolean disableOneChoice = false;
 //	@formatter:on
 
+
+	//method to return string of label for initialize
 	public static String GetNotice_Msg(int index) {
 		return NOTICE_MSG[index];
 	}// end method
 
 	/*
-	 * Method to PRINT the introductory of the program has a parameter of an String
-	 * array and a boolean ask the user to input the size validates if user input
-	 * really passes the 1-6 choices range handles exception if user input a
-	 * non-match data type
-	 */
-
-	public static void MenuDisplay(String[] blueprint, boolean disableOneChoice) {
-
-		System.out.println("\tOPERATIONS");
-//		@formatter:off
-		for (int i = 0; i < blueprint.length; i++) {
-			if (i == 0 && !disableOneChoice) {
-				System.out.println("\t=>" + "[" + (i + 1) + "]"
-						+ blueprint[i] + " (" + GetNotice_Msg(i) + ")");
-				// if true disables the first operation
-			} else if (i == 0 && disableOneChoice) {
-				System.out.println("\t=>" + GetNotice_Msg(i + 1));
-			} else {
-				System.out.println("\t=>" + "[" + (i + 1) + "]" + blueprint[i]);
-			} // end if else
-		} // end for
-//		@formatter:on
-
-		System.out.print("Please Choose An Operation: ");
-		Operation_Type();
-	}// end method
-
-	/*
-	 * Method to properly make a condition between operations has a parameter of an
-	 * integer for checking the input of user uses the method Initialized_First upon
-	 * checking if array is not initialized first
+	 * Method to properly make a condition between operations has a parameter of an integer for checking the input of user
+	 *invokes operationErrorMsg for every valid input
 	 */
 
 	public static void Operation_Type() {
@@ -104,8 +78,7 @@ public class CrudMenuOperations {
 	}// end method
 
 	/*
-	 * Method to get the user input and use a specific algorithm assigned to each
-	 * input choice
+	 * Method to get the user input and use a specific algorithm assigned to each input choice
 	 */
 
 	public static void OperationErrorMsg(int choice) {
@@ -127,23 +100,51 @@ public class CrudMenuOperations {
 
 		MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
 	}// end method
+	/*
+	 * used to print the console design
+	 */
 
-	
 	public static void printChar(char toPrint, int numTimes) {
 		for (int i = 0; i < numTimes; i++) {
 			System.out.print(toPrint);
 		}
 		System.out.println();
 	}
-	
+
 	// constructor
 	public CrudMenuOperations() {
-		printChar('*' , 47);
+		printChar('_' , 65);
 		System.out.println("\t" + PROGRAM_TITLE);
-		printChar('*' , 47);
-		
+		printChar('_' , 65);
+
 		System.out.println();
 		MenuDisplay(PRINT_OPERATIONS, disableOneChoice);
 
+	}// end method
+
+	/*
+	 * Method to PRINT the introductory of the program has a parameter of an String array
+	 * change disable choice 1 label if already had initialized
+	 */
+
+	public static void MenuDisplay(String[] blueprint, boolean disableOneChoice) {
+		printChar('_' , 65);
+		System.out.println("\tOPERATIONS");
+//		@formatter:off
+		for (int i = 0; i < blueprint.length; i++) {
+			if (i == 0 && !disableOneChoice) {
+				System.out.println("\t=>" + "[" + (i + 1) + "]"
+						+ blueprint[i] + " (" + GetNotice_Msg(i) + ")");
+				// if true disables the first operation
+			} else if (i == 0 && disableOneChoice) {
+				System.out.println("\t=>" + GetNotice_Msg(i + 1));
+			} else {
+				System.out.println("\t=>" + "[" + (i + 1) + "]" + blueprint[i]);
+			} // end if else
+		} // end for
+//		@formatter:on
+		printChar('_' , 65);
+		System.out.print("Please Choose An Operation: ");
+		Operation_Type();
 	}// end method
 }// end class
