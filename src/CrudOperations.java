@@ -118,14 +118,13 @@ public class CrudOperations {
 		System.out.print("\nNumber of elements to removed: ");
 		int numOfElements = sc.nextInt();
 		// prompt and store the starting index for deletion
+		while (true) {
 		System.out.print("Start to delete from what index? : ");
 		int starting_Index = sc.nextInt();
 		// return if index does not exist
 		if (starting_Index > array.length - 1 || starting_Index < 0) {
 			System.out.println("{Index does not exist!}");
-			return;
-		}
-
+		} else {
 		System.out.println("Started deleting  "+ numOfElements + " of elements at starting index of "+ starting_Index + " \n");
 
 		// avoid out of bounds if N of elements is larger than array
@@ -136,6 +135,9 @@ public class CrudOperations {
 		size -= numOfElements;
 
 		System.out.println("Successfully deleted  "+ numOfElements + " of elements at starting index of "+ starting_Index + " \n");
+		break;
+			}
+		}
 	}
 	/*
 	 * Method to start the splicing process
